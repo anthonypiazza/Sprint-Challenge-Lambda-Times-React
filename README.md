@@ -29,9 +29,24 @@ Look through the application code. If you have the old Lambda Times (Applied Jav
 ## Self-Study/Essay Questions
 
 - [ ] What are PropTypes used for? Please describe why it's important to type check our data in JavaScript.
+
+PropTypes are used to validate the type of incoming data to ensure the component is receiving and using the correct type of data (such as a string, number, object, array, or shape of an object). It is important because it is a way to ensure the child component will function properly by protecting against developer mistakes with data transfer.
+
 - [ ] Describe a life-cycle event in React?
+
+Life-cycle events are only available on class components that extend the base React component. when it initially Mounts, it is considered the birth of the lifecycle and requires the calling of a constructor function, initializing of state data, receiving of props, invoking of Render, and invoking of ComponentDidMount which confirms that the component mounted in the virtual DOM properly.
+
 - [ ] Explain the details of a Higher Order Component?
+
+A HOC is a component that takes in a component as an argument, a key benefit to this is the ability to share logic/functionality between two components. It can be considered a container to perform higher level shared logic.
+
 - [ ] What are three different ways to style components in React? Explain some of the benefits of each.
+
+CSS - Simple easy to read and understand for next developer
+
+Reactstrap - pre-built Library ala Bootstrap, fast implementation
+
+Styled Components - Adds flexibility with styling, can declare props for a certain style and pass down the different props to different components.
 
 ## Project Setup
 

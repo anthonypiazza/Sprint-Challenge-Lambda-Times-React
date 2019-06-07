@@ -3,8 +3,25 @@ import React, { Component } from 'react';
 import Tabs from './Tabs';
 import Cards from './Cards';
 
-// Importing our tab and card data. No need to change anything here.
 import { tabData, cardData } from '../../data';
+
+// Once the component has mounted, get the data and reflect that data on the state.
+//1. CDM setState to reference the arrays in data.js file
+
+// this function should take in the tab and update the state with the new tab.
+//2. created changeTab variable and set to tab
+//3. set state of selected to changeTab
+
+/* We're going to make this function more dynamic by using it to filter out our cards 
+  for when a tab is selected. 
+  Your algorithim for the logic here is as follows:
+    - if the selected tab is 'all' it should return all 
+      of the items from cardData.
+    - else, it should only return those cards whose 'tab' matched this.state.selected.*/
+//4. to filter cards by selected tab:
+//        - IF selected key:value from state is equal to all THEN return all cards
+//        - ELSE create activeCards array which is just the cards array from state and filter the new array
+//        - RETURN only the cards whose tab is equal to the selected value from state 
 
 export default class Content extends Component {
   constructor(props) {
@@ -17,38 +34,33 @@ export default class Content extends Component {
   }
 
   componentDidMount() {
-    // Once the component has mounted, get the data and reflect that data on the state.
+    this.setState({
+      tabs: tabData,
+      cards: cardData
+    })
   }
 
   changeSelected = tab => {
-    // this function should take in the tab and update the state with the new tab.
+    const changeTab = tab;
+    this.setState({selected: changeTab})
   };
 
   filterCards = () => {
-    /* Right now this function only returns the cards on state.
-      We're going to make this function more dynamic
-      by using it to filter out our cards for when a tab is selcted
-      
-      Notice that we're passing this function to our <Cards /> component below.
-      This function returns an array of cards, so we can just pass it down as such.
-
-      Your algorithim for the logic here is as follows: 
-        - if the selected tab is 'all' it should return all 
-          of the items from cardData. 
-        - else, it should only return those cards whose 'tab' matched this.state.selected.
-    */
-    return this.state.cards;
-  };
+    if (this.state.selected === 'all') {
+      return this.state.cards;
+    } else {
+      let activeCards = [...this.state.cards];
+      activeCards = activeCards.filter(card => {
+        return card.tab === this.state.selected;
+      })
+      return activeCards;
+    }
+  }
 
   render() {
     return (
       <div className="content-container">
-        {/* 
-          Add 2 props to the Tabs component, 
-          `selectedTab` that includes the currently selected tab
-          and `selectTabHandler` that includes the function to change the selected tab
-        */}
-        <Tabs tabs={this.state.tabs} />
+        <Tabs selectedTab={this.state.selected} selectTabHandler={this.changeSelected} tabs={this.state.tabs} />
         <Cards cards={this.filterCards()} />
       </div>
     );
